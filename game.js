@@ -165,6 +165,9 @@ function bar(e,t){const w=64,h=6,x=CX-w/2+(e.vx||0),y=e.vy+43,p=e===pl(),full=e.
  g.fillStyle='#fff';g.fillRect(x,y,w,h);
  g.fillStyle=p?(full?'#e8a800':'#2a9d4a'):(e.intent&&e.intent.k==='attack'?'#e13c3c':'#555');g.fillRect(x,y,w*e.atb,h);
  g.strokeStyle='#111';g.lineWidth=full&&p?2.5:1.5;g.strokeRect(x,y,w,h)}
+function hookBar(h){const k=Math.max(0,Math.min(1,(now()-h.t0)/HOOK_MS)),w=64,x=CX-w/2,y=rowY(h.pos)-TH/2+8;
+ g.fillStyle='#fff';g.fillRect(x,y,w,6);g.fillStyle=k>.8?'#e13c3c':'#c77d1a';g.fillRect(x,y,w*k,6);
+ g.strokeStyle='#111';g.lineWidth=1.5;g.strokeRect(x,y,w,6)}
 function draw(){
  const t=now();g.clearRect(0,0,W,H);g.fillStyle='#fff';g.fillRect(0,0,W,H);
  g.strokeStyle='#111';g.lineWidth=1.5;clouds.forEach(([x,y,r])=>{g.beginPath();g.arc(x,y,r,Math.PI*1.05,Math.PI*1.95);g.stroke();g.beginPath();g.arc(x+r*.7,y+4,r*.7,Math.PI*1.1,Math.PI*1.9);g.stroke()});
@@ -194,6 +197,7 @@ function draw(){
    else{g.fillStyle='#fff';g.strokeStyle='#111';g.lineWidth=2;g.fillRect(284,e.vy-28,44,56);g.strokeRect(284,e.vy-28,44,56);g.fillStyle='#111';g.font='18px sans-serif';g.fillText('…',306,e.vy+6)}}
  });
  foes().forEach(e=>{if(e.intent&&e.intent.k==='attack')warn(e,1)});
+ hooks.forEach(hookBar);
  ghosts=ghosts.filter(o=>t-o.t0<700);
  ghosts.forEach(o=>{const k=(t-o.t0)/700,e=o.e,im=sprite(e),h=A.H[e.t]*(1-k*.3*(o.fall?1:0)),w=h*im.ar;
   g.globalAlpha=1-k;g.drawImage(im.im,CX-w/2,e.vy+40-h+o.fall*k*130,w,h);g.globalAlpha=1});
