@@ -16,9 +16,12 @@ Prototype playable (canvas) untuk game biksu defensif — kini **Active Time Bat
 - Setiap karakter punya bar di bawahnya yang terisi otomatis. Biksu: 0→100% dalam 4 detik. Musuh: 5–7 detik (diacak ulang tiap putaran).
 - Musuh memilih aksi berdasarkan kondisi saat itu (ikon di kanan), lalu intensi itu terkunci. Saat bar penuh musuh menjalankannya apa pun yang terjadi (gagal jika terhalang, serangan kena siapa pun yang ada di tile target), baru kemudian memilih aksi berikutnya.
 - Bar biksu penuh = boleh beraksi (gerak / putar / kartu / buang kartu). Aksi mengosongkan bar. Boleh tidak berbuat apa-apa dan menahan bar penuh sampai momen yang pas.
-- Spawn musuh acak waktunya (tali grapple muncul, musuh naik ±3 detik kemudian). Gauge di atas tile tali menunjukkan kapan musuh naik (jadi merah di akhir).
+- Spawn musuh acak waktunya (tali grapple muncul, musuh naik ±3 detik kemudian). Gauge di bagian bawah tile tali menunjukkan kapan musuh naik (jadi merah di akhir).
 - Tombol jeda (kiri atas) membekukan semua timer.
 - Angka tuning ada di atas `game.js`: `PLAYER_MS, FOE_MIN, FOE_MAX, SPAWN_MIN, SPAWN_MAX, HOOK_MS, MAXF`.
+
+## Preview kartu
+Saat kartu ditahan (belum dilepas), tile yang terkena diarsir biru: Push/Swap/Twist = tile tepat di depan biksu, Pull = tile musuh yang akan ditarik, Throw = tile tepat di belakang biksu.
 
 ## Kontrol
 Swipe atas/bawah = gerak, kiri/kanan = putar. Drag kartu ke atas = pakai, drag ke bawah = buang semua.

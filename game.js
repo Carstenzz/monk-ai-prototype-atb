@@ -165,9 +165,17 @@ function bar(e,t){const w=64,h=6,x=CX-w/2+(e.vx||0),y=e.vy+43,p=e===pl(),full=e.
  g.fillStyle='#fff';g.fillRect(x,y,w,h);
  g.fillStyle=p?(full?'#e8a800':'#2a9d4a'):(e.intent&&e.intent.k==='attack'?'#e13c3c':'#555');g.fillRect(x,y,w*e.atb,h);
  g.strokeStyle='#111';g.lineWidth=full&&p?2.5:1.5;g.strokeRect(x,y,w,h)}
-function hookBar(h){const k=Math.max(0,Math.min(1,(now()-h.t0)/HOOK_MS)),w=64,x=CX-w/2,y=rowY(h.pos)-TH/2+8;
+function hookBar(h){const k=Math.max(0,Math.min(1,(now()-h.t0)/HOOK_MS)),w=64,x=CX-w/2,y=rowY(h.pos)+(at(h.pos)?34:43);
  g.fillStyle='#fff';g.fillRect(x,y,w,6);g.fillStyle=k>.8?'#e13c3c':'#c77d1a';g.fillRect(x,y,w*k,6);
  g.strokeStyle='#111';g.lineWidth=1.5;g.strokeRect(x,y,w,6)}
+function preview(c){const p=pl(),f=p.face,P=p.pos;let q;
+ if(c==='pull'){for(let x=P+f;inb(x);x+=f)if(at(x)){q=x;break}}
+ else q=c==='throw'?P-f:P+f;
+ if(q===undefined||!inb(q))return;
+ const y=TY+q*TH,B='rgba(50,120,235,.92)';g.save();g.beginPath();g.rect(105,y,170,TH);g.clip();
+ g.fillStyle='rgba(50,120,235,.14)';g.fillRect(105,y,170,TH);g.strokeStyle=B;g.lineWidth=3;
+ for(let i=-TH;i<170;i+=16){g.beginPath();g.moveTo(105+i,y+TH);g.lineTo(105+i+TH,y);g.stroke()}
+ g.restore()}
 function draw(){
  const t=now();g.clearRect(0,0,W,H);g.fillStyle='#fff';g.fillRect(0,0,W,H);
  g.strokeStyle='#111';g.lineWidth=1.5;clouds.forEach(([x,y,r])=>{g.beginPath();g.arc(x,y,r,Math.PI*1.05,Math.PI*1.95);g.stroke();g.beginPath();g.arc(x+r*.7,y+4,r*.7,Math.PI*1.1,Math.PI*1.9);g.stroke()});
@@ -183,6 +191,7 @@ function draw(){
  g.font='11px "Segoe Print","Comic Sans MS",cursive';g.fillStyle='#444';g.fillText(drag?DESC[hand[drag.i]]:(now()-msgT<1800?msg:(ready()?HINT:'Menunggu bar terisi…')),CX,48);
  hooks.forEach(h=>drawHook(h,t));
  foes().forEach(e=>{if(e.intent&&e.intent.k==='attack')warn(e,0)});
+ if(drag)preview(hand[drag.i]);
  // entities
  const sh=now()-shk<300?Math.sin(now()*.08)*5:0;
  [...ents.filter(e=>e.alive)].sort((a,b)=>a.vy-b.vy).forEach(e=>{
